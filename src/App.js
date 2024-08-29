@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import { ContextProvider } from './CardContext/CardContext';
 import './App.css';
+import Header from './component/Header';
+import Card from './component/Card';
+import AddPost from './component/AddPost'
+import SideBar from './component/SideBar';
+
 
 function App() {
+
+  const [selectedTab, setSelectedTab] = useState("home");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <ContextProvider>
+
+     
+      <SideBar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+      <div className="content">
+        <Header />
+        <div className="main-content">
+          {selectedTab === "home" ? <AddPost /> : <Card />}
+        </div>
+        
+      </div>
+      {/* <Footer /> */}
+      </ContextProvider>
     </div>
   );
 }
